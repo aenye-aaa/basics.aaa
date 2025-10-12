@@ -1,16 +1,21 @@
 import java.util.Scanner;
+import static sun.util.locale.LocaleUtils.isEmpty;
+
 
 public class Main {
+    private static final Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
-        Scanner scInt = new Scanner(System.in);
-        Scanner scString = new Scanner(System.in);
-        int option, size, counter = 0, searchCounter = 0;
+        int option = 0, size = 0, counter = 0, searchCounter = 0;
         String nameSearch, contactForRemoval;
+
         System.out.println("Перед началом работы программы определите максимально допустимое для хранения количество контактов");
-        size = scInt.nextInt();
+        size = scanner.nextInt();
+        scanner.nextLine();
         String[] names = new String [size];
         String[] phoneNumbers = new String [size];
         String[] searchResults = new String [size];
+
         while(true) {
             System.out.println("Система Учёта Контактов");
             System.out.println("1. Добавление нового контакта");
@@ -18,16 +23,20 @@ public class Main {
             System.out.println("3. Поиск контакта по имени");
             System.out.println("4. Удаление контакта");
             System.out.println("5. Выход из программы");
-            option = scInt.nextInt();
+
+            option = scanner.nextInt();
+            scanner.nextLine();
             switch(option) {
                 case 1:
                     if (counter < names.length) {
                         System.out.println("Введите имя нового контакта:");
                         System.out.print("Имя: ");
-                        names[counter] = scString.nextLine();
+                        while ((names[counter] = scanner.nextLine().trim()).isEmpty()) {
+                            System.out.println("Строка пуста. Введите имя нового контакта:");
+                        }
                         System.out.println("Введите номер телефона нового контакта:");
                         System.out.print("Телефон: ");
-                        phoneNumbers[counter] = scString.nextLine();
+                        phoneNumbers[counter] = scanner.nextLine();
                         counter += 1;
                     }
                     else {
@@ -56,7 +65,7 @@ public class Main {
                         break;
                     }
                     System.out.print("Имя для поиска: ");
-                    nameSearch = scString.nextLine();
+                    nameSearch = scanner.nextLine();
                     for (int i = 0; i < names.length; i++){
                         if (nameSearch.equals(names[i])){
                             searchCounter += 1;
@@ -85,7 +94,7 @@ public class Main {
                         break;
                     }
                     System.out.print("Имя для удаления: ");
-                    contactForRemoval = scString.nextLine();
+                    contactForRemoval = scanner.nextLine();
                     for (int i = 0; i < names.length; i++){
                         if (contactForRemoval.equals(names[i])){
                             searchCounter += 1;
@@ -101,7 +110,6 @@ public class Main {
                             System.out.println("Контакт с именем " + contactForRemoval + " удалён.");
                         }
                     }
-                    System.out.println(searchCounter);
                     if (searchCounter == 0){
                         System.out.println("Контакт с именем " + contactForRemoval + " не найден.");
                     }
@@ -112,6 +120,9 @@ public class Main {
                     System.out.println("Работа программы завершена");
                     System.out.println("---");
                     System.exit(0);
+                    break;
+                default:
+                    System.out.println("Такого пункта нет в Меню");
                     break;
             }
         }

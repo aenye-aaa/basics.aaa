@@ -1,12 +1,11 @@
 import java.util.Scanner;
-import static sun.util.locale.LocaleUtils.isEmpty;
 
 
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        int option = 0, size = 0, counter = 0, searchCounter = 0;
+        int option, size, counter = 0, searchCounter = 0;
         String nameSearch, contactForRemoval;
 
         System.out.println("Перед началом работы программы определите максимально допустимое для хранения количество контактов");
